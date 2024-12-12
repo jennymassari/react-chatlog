@@ -228,7 +228,10 @@ function App () {
   const handleLikeChat = (id) => {
     setMessageData(messageData => messageData.map(chat =>{
       if (chat.id === id){
-        return {...chat, likeCount: chat.likeCount +1};
+        // return {...chat, likeCount: chat.likeCount +1};
+        const updatedChat = { ...chat, liked: !chat.liked };
+        updatedChat.likeCount = updatedChat.liked ? chat.likeCount + 1 : chat.likeCount - 1;
+        return updatedChat;
       } else {
         return chat;
       }
@@ -243,7 +246,7 @@ function App () {
     return total;
   };
 
-  const totalLikes = calculateTotalLikeCount(messageData)
+  const totalLikes = calculateTotalLikeCount(messageData);
 
   return (
     <div id="App">
@@ -252,10 +255,7 @@ function App () {
         <p>{totalLikes} 🤍s</p>
       </header>
       <main>
-        {
-          <ChatLog messageData={messageData} onLikeChat={handleLikeChat}/>
-        /* Wave 01: Render one ChatEntry component
-        Wave 02: Render ChatLog component */}
+        <ChatLog messageData={messageData} onLikeChat={handleLikeChat}/>
       </main>
     </div>
   );

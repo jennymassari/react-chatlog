@@ -9,6 +9,7 @@ const ChatEntry = ({
   body, 
   timeStamp,
   likeCount,
+  liked,
   onLikeChat,
 }) => {
   const onLikeClick = () => {
@@ -19,8 +20,12 @@ const ChatEntry = ({
       <h2 className="entry-name">{sender}</h2>
       <section className="entry-bubble">
         <p>{body}</p>
-        <p className="entry-time">{timeStamp}</p>
-        <button onClick={onLikeClick} className="like">🤍</button>
+        <p className="entry-time">
+          <TimeStamp time={timeStamp} />
+        </p>
+        <button onClick={onLikeClick} className="like">
+          {liked ? '❤️' : '🤍'} {likeCount}
+        </button>
       </section>
     </div>
   );
@@ -33,6 +38,7 @@ ChatEntry.propTypes = {
   body: PropTypes.string.isRequired,
   timeStamp: PropTypes.string.isRequired,
   likeCount: PropTypes.number.isRequired,
+  liked: PropTypes.bool.isRequired,
   onLikeChat: PropTypes.func.isRequired
 };
 
