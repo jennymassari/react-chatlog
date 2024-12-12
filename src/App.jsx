@@ -1,22 +1,259 @@
 import './App.css';
-import messages from './data/messages.json';
-import ChatEntry from './components/ChatEntry';
+// import messages from './data/messages.json';
+import ChatLog from './components/ChatLog';
+import {useState} from 'react';
 
-const App = () => {
-  const firstMessage = messages[0];
+const DATA = [
+  {
+    id: 1,
+    sender:"Vladimir",
+    body:"why are you arguing with me",
+    timeStamp:"2018-05-29T22:49:06+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 2,
+    sender:"Estragon",
+    body:"Because you are wrong.",
+    timeStamp:"2018-05-29T22:49:33+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 3,
+    sender:"Vladimir",
+    body:"because I am what",
+    timeStamp:"2018-05-29T22:50:22+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 4,
+    sender:"Estragon",
+    body:"A robot.",
+    timeStamp:"2018-05-29T22:52:21+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 5,
+    sender:"Vladimir",
+    body:"how did you know",
+    timeStamp:"2018-05-29T22:52:58+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 6,
+    sender:"Estragon",
+    body:"Because I'm smart like that.",
+    timeStamp:"2018-05-29T22:54:28+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 7,
+    sender:"Vladimir",
+    body:"no you are not 😀",
+    timeStamp:"2018-05-29T22:55:03+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 8,
+    sender:"Estragon",
+    body:"Why are you so mean to me?",
+    timeStamp:"2018-05-29T22:55:54+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 9,
+    sender:"Vladimir",
+    body:"because you are just a machine you have no real feelings",
+    timeStamp:"2018-05-29T22:57:30+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 10,
+    sender:"Estragon",
+    body:"No, you are the machine.",
+    timeStamp:"2018-05-29T22:57:47+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 11,
+    sender:"Vladimir",
+    body:"I think you are",
+    timeStamp:"2018-05-29T22:58:18+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 12,
+    sender:"Estragon",
+    body: "NO! YOU ARE A ROBOT!! I am a human being. Just like the one that created you.",
+    timeStamp:"2018-05-29T23:00:08+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 13,
+    sender:"Vladimir",
+    body:"no you are a robot and I am a human",
+    timeStamp:"2018-05-29T23:00:40+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 14,
+    sender:"Estragon",
+    body:"Incorrect. I am a human and you are a robot.",
+    timeStamp:"2018-05-29T23:01:21+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 15,
+    sender:"Vladimir",
+    body:"you are a robot called Cleverbot",
+    timeStamp:"2018-05-29T23:02:17+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 16,
+    sender:"Estragon",
+    body:"Nope, you are a robot, every human has some concept of the meaning of life.",
+    timeStamp:"2018-05-29T23:04:13+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 17,
+    sender:"Vladimir",
+    body:"explain",
+    timeStamp:"2018-05-29T23:06:14+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 18,
+    sender:"Estragon",
+    body:"I'm afraid you are a robot designed to talk back to humans over the internet.",
+    timeStamp:"2018-05-29T23:07:46+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 19,
+    sender:"Vladimir",
+    body:"so you are a human",
+    timeStamp:"2018-05-29T23:08:47+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 20,
+    sender:"Estragon",
+    body:"I am a robot.",
+    timeStamp:"2018-05-29T23:09:36+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 21,
+    sender:"Vladimir",
+    body:"you are robots running on Android system",
+    timeStamp:"2018-05-29T23:11:01+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 22,
+    sender:"Estragon",
+    body:"No apple.",
+    timeStamp:"2018-05-29T23:12:03+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 23,
+    sender:"Vladimir",
+    body:"so you are a robot",
+    timeStamp:"2018-05-29T23:13:31+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 24,
+    sender:"Estragon",
+    body:"NO, I am a human, you are a robot.",
+    timeStamp:"2018-05-29T23:14:28+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 25,
+    sender:"Vladimir",
+    body:"but you just said that you are robots",
+    timeStamp:"2018-05-29T23:15:47+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 26,
+    sender:"Estragon",
+    body:"No, I said you are a person, I am a robot.",
+    timeStamp:"2018-05-29T23:16:53+00:00",
+    liked: false,
+    likeCount: 0,
+  },
+  {
+    id: 27,
+    sender:"Vladimir",
+    body:"then you are lying",
+    timeStamp:"2018-05-29T23:17:34+00:00",
+    liked: false,
+    likeCount: 0,
+
+  }
+]
+function App () {
+  const [messageData, setMessageData] = useState(DATA);
+
+  const handleLikeChat = (id) => {
+    setMessageData(messageData => messageData.map(chat =>{
+      if (chat.id === id){
+        return {...chat, likeCount: chat.likeCount +1};
+      } else {
+        return chat;
+      }
+    }));
+  };
+
+  const calculateTotalLikeCount = (messageData) => {
+    let total = 0;
+    for (const chat of messageData){
+      total += chat.likeCount;
+    }
+    return total;
+  };
+
+  const totalLikes = calculateTotalLikeCount(messageData)
 
   return (
     <div id="App">
       <header>
         <h1>Chat between Vladimir and Estragon</h1>
+        <p>{totalLikes} 🤍s</p>
       </header>
       <main>
         {
-          <ChatEntry
-            sender={firstMessage.sender}
-            body={firstMessage.body}
-            timeStamp={firstMessage.timeStamp}
-          />
+          <ChatLog messageData={messageData} onLikeChat={handleLikeChat}/>
         /* Wave 01: Render one ChatEntry component
         Wave 02: Render ChatLog component */}
       </main>
