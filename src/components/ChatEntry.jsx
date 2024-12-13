@@ -5,11 +5,10 @@ import TimeStamp from './TimeStamp';
 
 const ChatEntry = ({
   id,
-  sender, 
-  body, 
+  sender,
+  body,
   timeStamp,
   liked,
-  likeCount,
   onLikeChat,
 }) => {
   const onLikeClick = () => {
