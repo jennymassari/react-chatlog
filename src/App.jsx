@@ -255,7 +255,7 @@ function App () {
         <p>{totalLikes} 🤍s</p>
       </header>
       <main>
-        <ChatLog messageData={messageData} onLikeChat={handleLikeChat}/>
+        <ChatLog entries={messageData} onLikeChat={handleLikeChat}/>
       </main>
     </div>
   );

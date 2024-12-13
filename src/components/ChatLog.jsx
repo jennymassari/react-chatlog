@@ -1,10 +1,10 @@
 import ChatEntry from './ChatEntry';
 import PropTypes from 'prop-types';
 
-const ChatLog = ({ messageData, onLikeChat }) => {
+const ChatLog = ({ entries, onLikeChat }) => {
   return (
     <div>
-      {messageData.map((chat) => (
+      {entries.map((chat) => (
         <ChatEntry
           key={chat.id}
           id={chat.id}
