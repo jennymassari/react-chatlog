@@ -18,7 +18,13 @@ function App () {
   };
 
   const calculateTotalLikeCount = (messageData) => {
-    return messageData.filter((chat) => chat.liked).length;
+    let totalLikes = 0;
+    for (const chat of messageData) {
+      if (chat.liked) {
+        totalLikes++;
+      }
+    }
+    return totalLikes;
   };
 
   const totalLikes = calculateTotalLikeCount(messageData);
