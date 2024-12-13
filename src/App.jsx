@@ -252,7 +252,7 @@ function App () {
     <div id="App">
       <header>
         <h1>Chat between Vladimir and Estragon</h1>
-        <p>{totalLikes} 🤍s</p>
+        <p>{totalLikes} ❤️s</p>
       </header>
       <main>
         <ChatLog entries={messageData} onLikeChat={handleLikeChat}/>

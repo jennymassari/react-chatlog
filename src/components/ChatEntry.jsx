@@ -8,13 +8,14 @@ const ChatEntry = ({
   sender, 
   body, 
   timeStamp,
-  likeCount,
   liked,
+  likeCount,
   onLikeChat,
 }) => {
   const onLikeClick = () => {
     onLikeChat(id);
   };
+
   return (
     <div className="chat-entry local">
       <h2 className="entry-name">{sender}</h2>
@@ -24,7 +25,7 @@ const ChatEntry = ({
           <TimeStamp time={timeStamp} />
         </p>
         <button onClick={onLikeClick} className="like">
-          {liked ? '❤️' : '🤍'} {likeCount}
+          {liked ? '❤️' : '🤍'}
         </button>
       </section>
     </div>
